@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.movement;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -10,8 +11,11 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ReadWriteFile;
 
 import org.checkerframework.checker.units.qual.A;
+import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
+import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +62,10 @@ public abstract class GAmovement {
     int stuckdisttrackerX = 0;
     int stuckcountY = 0;
     int stuckdisttrackerY = 0;
+
+    protected GAmovement() throws IOException {
+    }
+
     public final void GAtestInit (DcMotorEx front_left, DcMotorEx front_right, DcMotorEx back_left, DcMotorEx back_right, IMU imu, DcMotorEx X_axis_odometer, DcMotorEx Y_axis_odometer) {
         fl = front_left;
         fr = front_right;

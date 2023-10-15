@@ -1,12 +1,19 @@
 package org.firstinspires.ftc.teamcode.drive;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorRangeSensor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.movement.GAmovementKotlinRewrite;
 import org.firstinspires.ftc.teamcode.subsystems.colorDistance;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.VisionPortalImpl;
@@ -38,4 +45,11 @@ public class TagTest extends LinearOpMode {
             telemetry.update();
         }
     }
+}
+
+class TagMove extends GAmovementKotlinRewrite {
+    public TagMove(@NonNull DcMotorEx FrontLeftMotor, @NonNull DcMotorEx FrontRightMotor, @NonNull DcMotorEx BackLeftMotor, @NonNull DcMotorEx BackRightMotor, @Nullable HardwareMap hardwareMap, @NonNull DcMotorEx StrafeOdometer, @NonNull DcMotorEx DriveOdometer, @Nullable IMU Imu) {
+        super(FrontLeftMotor, FrontRightMotor, BackLeftMotor, BackRightMotor, hardwareMap, StrafeOdometer, DriveOdometer, Imu);
+    }
+
 }
