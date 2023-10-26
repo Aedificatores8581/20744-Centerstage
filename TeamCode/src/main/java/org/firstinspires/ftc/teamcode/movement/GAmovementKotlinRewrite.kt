@@ -4,9 +4,13 @@ import com.google.gson.JsonParser
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.HardwareMap
 import com.qualcomm.robotcore.hardware.IMU
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit
 import java.io.FileReader
 import kotlin.math.abs
+import kotlin.math.cos
 import kotlin.math.pow
+import kotlin.math.sin
 
 abstract class GAmovementKotlinRewrite(
     FrontLeftMotor: DcMotorEx,
@@ -49,6 +53,14 @@ abstract class GAmovementKotlinRewrite(
     private var stuckdisttrackerX = 0
     private var stuckcountY = 0
     private var stuckdisttrackerY = 0
+
+    //Rework vars
+    private var targetY = 0
+    private var targetX = 0
+    private var targetO: Double = 0.0
+    private var posThisStateX = 0
+    private var posThisStateY = 0
+
 
     open fun autoConstructor(t: Int): Boolean {
         return true
@@ -202,10 +214,37 @@ abstract class GAmovementKotlinRewrite(
                Average distance for this speed: ${average.avgDistancePerLoop}
                """.trimIndent()
     }
+
+    //WIP
+    fun moveStandard (speed: Double) {
+        if (imu == null) {
+            gaTelemetryData += "!!WARNING!!\nCannot drive field centric with an undefined IMU"
+            return
+        }
+        val yaw = imu!!.robotYawPitchRollAngles.getYaw(AngleUnit.DEGREES)
+        val fTickVal = cos(yaw)*(targetX)+cos(yaw)*targetY
+        val sTickVal = sin(yaw)*targetX+sin(yaw)*targetY
+        if (!tolerate(yaw, targetO, 15.0)) {
+            val turn = yaw - targetO
+        }
+
+    }
+    fun setTarget(x:Int, y:Int, orientation:Double) {
+        targetY = y
+        targetX = x
+        targetO = orientation
+    }
+    fun getTicks(): Int {
+        return ticks;
+    }
+
+    private fun tolerate(value1:Double, value2:Double, tolerance:Double): Boolean {
+        return abs(value1 - value2) < tolerance
+    }
 }
 
 internal class AvgSpeedKotlinRewrite(
     var loopsThisSpeed: Int,
     var currentSpeed: Double,
     var avgDistancePerLoop: Double
-) {}
+)

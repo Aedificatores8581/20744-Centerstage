@@ -27,5 +27,6 @@ class PropDetect : LinearOpMode() {
         phoneCam.setPipeline(detector)
         phoneCam.startStreaming(240, 240, OpenCvCameraRotation.SIDEWAYS_LEFT)
         val location = detector.position
+        telemetry.addData("location:", location)
     }
 }
