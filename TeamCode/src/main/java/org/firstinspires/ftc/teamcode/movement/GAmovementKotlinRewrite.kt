@@ -66,7 +66,7 @@ abstract class GAmovementKotlinRewrite(
         return true
     }
 
-    private fun complete() {
+    public fun complete() {
         substate++
     }
 
@@ -79,6 +79,9 @@ abstract class GAmovementKotlinRewrite(
     }
 
     fun update() {
+        if (state == 0 && substate == 0) {
+            onStart();
+        }
         if (substate == substateGoal && ticks != 0) {
             state++
             ticks = 0
@@ -86,6 +89,8 @@ abstract class GAmovementKotlinRewrite(
         autoConstructor(state)
         ticks++
     }
+
+    open fun onStart() {}
 
     fun moveToTicks(forward: Int, strafe: Int, targetSpeed: Double) {
         var newSpeedY: Double
