@@ -50,9 +50,10 @@ public class AutoCenterStage extends LinearOpMode {
         telemetry.update();
 
         //ENTER MOTOR NAMES AND STUFF IN HERE:
-        Move m = new Move(
+/*        Move m = new Move(
 
         );
+ */
         //
         waitForStart();
 
@@ -74,7 +75,7 @@ public class AutoCenterStage extends LinearOpMode {
 
 
     //
-            m.update();
+            //m.update();
             telemetry.update();
         }
 
